@@ -25,7 +25,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if(BUILD_SHARED_LIBS)
     target_compile_definitions(${PROJECT_NAME}
-        PRIVATE GLAD_API_CALL_EXPORT
+        PUBLIC  GLAD_API_CALL_EXPORT
         PRIVATE GLAD_API_CALL_EXPORT_BUILD)
 endif()
 
