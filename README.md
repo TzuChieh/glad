@@ -5,4 +5,4 @@
   * glad is generated using webservice for glad2, settings are:
     * Generator: C/C++
     * APIs: gl, Version 4.6, Core profile
-    * Options: header only, loader
+    * Options: loader

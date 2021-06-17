@@ -1,6 +1,4 @@
-# glad was generated as a header-only library
-# (see https://dominikberner.ch/cmake-interface-lib/ for the basics on 
-# configuring a header-only library)
+# glad library source was automatically generated
 
 cmake_minimum_required(VERSION 3.12)
 
@@ -11,18 +9,25 @@ project("glad"
     DESCRIPTION  "Multi-Language Vulkan/GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs."
     HOMEPAGE_URL "https://github.com/Dav1dde/glad/tree/glad2")
 
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME}
+    "${PROJECT_SOURCE_DIR}/src/gl.c")
 
 # Name alias so targets can always be used with namespace
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 # BUILD_INTERFACE:   include path if being used to build
 # INSTALL_INTERFACE: include path if being used as an installation (relative to install prefix)
-target_include_directories(${PROJECT_NAME} INTERFACE 
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+target_include_directories(${PROJECT_NAME} PUBLIC 
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(${PROJECT_NAME}
+        PRIVATE GLAD_API_CALL_EXPORT
+        PRIVATE GLAD_API_CALL_EXPORT_BUILD)
+endif()
 
 # Specifying rules for installing targets from a project
 install(TARGETS ${PROJECT_NAME}
